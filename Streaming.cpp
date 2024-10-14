@@ -153,7 +153,11 @@ SoapySDR::Stream *SoapyAirspy::setupStream(
     airspy_set_sample_type(dev, asFormat);
     sampleRateChanged.store(true);
 
-    bytesPerSample = SoapySDR::formatToSize(format);
+    if (format == "RAW") {
+        bytesPerSample = sizeof(uint16_t);
+    } else {
+        bytesPerSample = SoapySDR::formatToSize(format);
+    }
 
     //We get this many complex samples over the bus.
     //Its the same for both complex float and int16.
