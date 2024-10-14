@@ -155,14 +155,15 @@ SoapySDR::Stream *SoapyAirspy::setupStream(
 
     if (format == "RAW") {
         bytesPerSample = sizeof(uint16_t);
+        bufferLength = DEFAULT_BUFFER_BYTES;
     } else {
         bytesPerSample = SoapySDR::formatToSize(format);
-    }
 
-    //We get this many complex samples over the bus.
-    //Its the same for both complex float and int16.
-    //TODO adjust when packing is enabled
-    bufferLength = DEFAULT_BUFFER_BYTES/4;
+        //We get this many complex samples over the bus.
+        //Its the same for both complex float and int16.
+        //TODO adjust when packing is enabled
+        bufferLength = DEFAULT_BUFFER_BYTES/4;
+    }
 
     //clear async fifo counts
     _buf_tail = 0;
