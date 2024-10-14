@@ -141,10 +141,13 @@ SoapySDR::Stream *SoapyAirspy::setupStream(
     } else if (format == SOAPY_SDR_CS16) {
         SoapySDR_log(SOAPY_SDR_INFO, "Using format CS16.");
         asFormat = AIRSPY_SAMPLE_INT16_IQ;
+    } else if (format == "RAW") {
+        SoapySDR_log(SOAPY_SDR_INFO, "Using RAW format.");
+        asFormat = AIRSPY_SAMPLE_RAW;
     } else {
         throw std::runtime_error(
                 "setupStream invalid format '" + format
-                        + "' -- Only CS16 and CF32 are supported by SoapyAirspy module.");
+                        + "' -- Only CS16, CF32 and RAW are supported by SoapyAirspy module.");
     }
 
     airspy_set_sample_type(dev, asFormat);
